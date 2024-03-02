@@ -10,6 +10,7 @@ import TableBody from "./components/components/table/components/table-body.compo
 import TableRow from "./components/components/table/components/table-row.component";
 import TableCell from "./components/components/table/components/table-cell.component";
 import Loading from "./components/shared/loading/loading.component";
+import TableFooter from "./components/components/table/components/table-footer.component";
 
 function App() {
   const tableColums: TableColumn[] = [
@@ -30,13 +31,13 @@ function App() {
     axios.defaults.baseURL = "http://localhost:8000";
     setData(
       await axios
-        .post("/person")
+        .post("/person?take=100")
         .then((response) => {
           setIsLoading(false);
           return response.data.persons as Person[];
         })
         .catch(() => {
-          //setIsLoading(false);
+          setIsLoading(false);
           return [];
         })
     );
@@ -47,7 +48,7 @@ function App() {
       <div className="min-h-0 w-full flex-1 overflow-y-auto">
         {isLoading && (
           <div className="flex flex-col justify-center items-center w-full h-full">
-            <Loading size="w-20 h-20"/>
+            <Loading size="w-20 h-20" />
           </div>
         )}
         {!isLoading && (
@@ -58,6 +59,7 @@ function App() {
                   <TableHeader
                     className={tableColumn.className}
                     name={tableColumn.name}
+                    key={tableColumn.name}
                   ></TableHeader>
                 );
               })}
@@ -65,7 +67,7 @@ function App() {
             <TableBody>
               {data.map((row) => {
                 return (
-                  <TableRow className="bg-base-100">
+                  <TableRow className="bg-base-100" key={row.id}>
                     <TableCell>{row.name}</TableCell>
                     <TableCell>{row.age}</TableCell>
                     <TableCell>{row.sex}</TableCell>
@@ -74,6 +76,7 @@ function App() {
                 );
               })}
             </TableBody>
+            <TableFooter className="sticky bottom-0 bg-primary w-full">teste</TableFooter>
           </Table>
         )}
       </div>

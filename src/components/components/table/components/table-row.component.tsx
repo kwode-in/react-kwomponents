@@ -5,7 +5,11 @@ type TableRowProps = {
 };
 
 function TableRow(props: PropsWithChildren<TableRowProps>) {
-  return <tr className={props.className}>{props.children}</tr>;
+  return (
+    <tr className={props.className}>
+      {props.children}
+    </tr>
+  );
 }
 
 export default TableRow;
