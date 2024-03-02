@@ -1,7 +1,7 @@
 import { PropsWithChildren } from "react";
 
 type TableProps = {
-  className: string;
+  className?: string;
 };
 
 function Table(props: PropsWithChildren<TableProps>) {
