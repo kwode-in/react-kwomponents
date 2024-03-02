@@ -3,16 +3,8 @@ import { useEffect, useState } from "react";
 import { Person } from "./data/person.class";
 import axios from "axios";
 import { TableColumn } from "./components/components/table/classes/table-column.class";
-import Table from "./components/components/table/components/table.component";
-import TableHead from "./components/components/table/components/table-head.component";
-import TableHeader from "./components/components/table/components/table-header.component";
-import TableBody from "./components/components/table/components/table-body.component";
-import TableRow from "./components/components/table/components/table-row.component";
-import TableCell from "./components/components/table/components/table-cell.component";
 import Loading from "./components/shared/loading/loading.component";
-import TableContent from "./components/components/table/components/table-content.component";
-import TablePagination from "./components/components/table/components/table-pagination.component";
-import TableTitle from "./components/components/table/components/table-title.component";
+import { Table } from "./components/components/table/components/table.index";
 
 function App() {
   const tableColums: TableColumn[] = [
@@ -53,40 +45,40 @@ function App() {
         </div>
       )}
       {!isLoading && (
-        <Table className="flex w-full flex-col min-h-0 flex-1 rounded-lg p-1 bg-base-200">
-          <TableTitle
+        <Table.Root className="flex w-full flex-col min-h-0 flex-1 rounded-lg p-1 bg-base-200">
+          <Table.Title
             className="bg-base-200 p-2 flex flex-col justify-center items-center"
             title="People"
           />
-          <TableContent className="w-full table table-pin-rows">
-            <TableHead>
+          <Table.Content className="w-full table table-pin-rows">
+            <Table.Head>
               {tableColums.map((tableColumn) => {
                 return (
-                  <TableHeader
+                  <Table.Header
                     className={tableColumn.className}
                     name={tableColumn.name}
                     key={tableColumn.name}
-                  ></TableHeader>
+                  ></Table.Header>
                 );
               })}
-            </TableHead>
-            <TableBody>
+            </Table.Head>
+            <Table.Body>
               {data.map((row) => {
                 return (
-                  <TableRow className="bg-base-100" key={row.id}>
-                    <TableCell>{row.name}</TableCell>
-                    <TableCell>{row.age}</TableCell>
-                    <TableCell>{row.sex}</TableCell>
-                    <TableCell>{row.address}</TableCell>
-                  </TableRow>
+                  <Table.Row className="bg-base-100" key={row.id}>
+                    <Table.Cell>{row.name}</Table.Cell>
+                    <Table.Cell>{row.age}</Table.Cell>
+                    <Table.Cell>{row.sex}</Table.Cell>
+                    <Table.Cell>{row.address}</Table.Cell>
+                  </Table.Row>
                 );
               })}
-            </TableBody>
-          </TableContent>
-          <TablePagination className="sticky bottom-0 bg-base-200 w-full h-10">
+            </Table.Body>
+          </Table.Content>
+          <Table.Pagination className="sticky bottom-0 bg-base-200 w-full h-10">
             teste
-          </TablePagination>
-        </Table>
+          </Table.Pagination>
+        </Table.Root>
       )}
     </div>
   );
