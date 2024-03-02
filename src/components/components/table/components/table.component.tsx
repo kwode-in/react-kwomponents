@@ -1,20 +1,11 @@
-import { PropsWithChildren, ReactNode } from "react";
+import { PropsWithChildren } from "react";
 
 type TableProps = {
   className?: string;
 };
 
 function Table(props: PropsWithChildren<TableProps>) {
-  let children = (props.children as ReactNode[]).slice(
-    0,
-    (props.children as ReactNode[]).length - 1
-  );
-  return (
-    <>
-      <table className={props.className}>{children}</table>
-      {(props.children as ReactNode[])[(props.children as ReactNode[]).length - 1]}
-    </>
-  );
+  return <div className={props.className}>{props.children}</div>;
 }
 
 export default Table;

@@ -1,10 +1,10 @@
 import { PropsWithChildren } from "react";
 
-type TableFooter = {
+type TablePaginationProps = {
   className?: string;
 };
 
-function TableFooter(props: PropsWithChildren<TableFooter>) {
+function TablePagination(props: PropsWithChildren<TablePaginationProps>) {
   return <div className={props.className}>{props.children}</div>;
 }
-export default TableFooter;
+export default TablePagination;

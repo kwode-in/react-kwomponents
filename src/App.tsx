@@ -10,7 +10,9 @@ import TableBody from "./components/components/table/components/table-body.compo
 import TableRow from "./components/components/table/components/table-row.component";
 import TableCell from "./components/components/table/components/table-cell.component";
 import Loading from "./components/shared/loading/loading.component";
-import TableFooter from "./components/components/table/components/table-footer.component";
+import TableContent from "./components/components/table/components/table-content.component";
+import TablePagination from "./components/components/table/components/table-pagination.component";
+import TableTitle from "./components/components/table/components/table-title.component";
 
 function App() {
   const tableColums: TableColumn[] = [
@@ -45,14 +47,18 @@ function App() {
 
   return (
     <div className="flex h-screen w-screen flex-col bg-base-300 p-12">
-      <div className="min-h-0 w-full flex-1 overflow-y-auto">
-        {isLoading && (
-          <div className="flex flex-col justify-center items-center w-full h-full">
-            <Loading size="w-20 h-20" />
-          </div>
-        )}
-        {!isLoading && (
-          <Table className="w-full table table-pin-rows">
+      {isLoading && (
+        <div className="flex flex-col justify-center items-center w-full h-full">
+          <Loading size="w-20 h-20" />
+        </div>
+      )}
+      {!isLoading && (
+        <Table className="flex w-full flex-col min-h-0 flex-1 rounded-lg p-1 bg-base-200">
+          <TableTitle
+            className="bg-base-200 p-2 flex flex-col justify-center items-center"
+            title="People"
+          />
+          <TableContent className="w-full table table-pin-rows">
             <TableHead>
               {tableColums.map((tableColumn) => {
                 return (
@@ -76,10 +82,12 @@ function App() {
                 );
               })}
             </TableBody>
-            <TableFooter className="sticky bottom-0 bg-primary w-full">teste</TableFooter>
-          </Table>
-        )}
-      </div>
+          </TableContent>
+          <TablePagination className="sticky bottom-0 bg-base-200 w-full h-10">
+            teste
+          </TablePagination>
+        </Table>
+      )}
     </div>
   );
 }
