@@ -16,19 +16,20 @@ function App() {
 
   const [data, setData] = useState<Person[]>([]);
   const [itemsPerPage, setItemsPerPage] = useState<ItemsPerPage>(
-    ItemsPerPage.FIFTEEN
+    ItemsPerPage.TWENTY
   );
+  const [currentPage, setCurrentPage] = useState<number>(0);
   const [totalItems, setTotalItems] = useState(0);
-
-  useEffect(() => {
-    getData();
-  }, []);
 
   async function getData(): Promise<void> {
     axios.defaults.baseURL = "http://localhost:8000";
     setData(
       await axios
-        .post(`/person?take=${itemsPerPage}`)
+        .post(
+          `/person?take=${itemsPerPage}&skip=${
+            currentPage === 0 ? 0 : itemsPerPage * (currentPage - 1)
+          }`
+        )
         .then((response) => {
           setTotalItems(response.data.totalItems);
           return response.data.persons as Person[];
@@ -39,12 +40,25 @@ function App() {
     );
   }
 
+  function getCurrentPage(page: number) {
+    setCurrentPage(page);
+  }
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  useEffect(() => {
+    getData();
+  }, [currentPage]);
+
   return (
     <div className="flex h-screen w-screen flex-col bg-base-300 p-12">
       <Table.Root
         className="flex w-full flex-col min-h-0 flex-1 rounded-lg p-1 bg-base-200"
         totalItems={totalItems}
         itemsPerPage={itemsPerPage}
+        getCurrentPage={getCurrentPage}
       >
         <Table.Title
           className="bg-base-200 p-2 flex flex-col justify-center items-center"

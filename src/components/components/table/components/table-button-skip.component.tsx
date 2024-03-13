@@ -1,11 +1,24 @@
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, useContext } from "react";
+import { DataContext } from "./table-root.component";
 
 type TableButtonSkipProps = {
   className?: string;
 };
 
 function TableButtonSkip(props: PropsWithChildren<TableButtonSkipProps>) {
-  return <div className={props.className}>{props.children}</div>;
+  let { context, setContext } = useContext(DataContext);
+
+  function skip() {
+    setContext({
+      ...context,
+      currentPage: Math.ceil(context.totalItems / context.itemsPerPage),
+    });
+  }
+  return (
+    <button className={props.className} onClick={skip}>
+      {props.children}
+    </button>
+  );
 }
 
 export default TableButtonSkip;

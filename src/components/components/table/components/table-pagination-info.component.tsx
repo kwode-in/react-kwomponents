@@ -13,12 +13,15 @@ function TablePaginationInfo(
   return (
     <div className={props.className}>
       <div>
-        {Number.isInteger(context.currentPage) ? 1 * context.currentPage : 0}
+        {context.currentPage === 0
+          ? 0
+          : (context.currentPage - 1) * context.itemsPerPage + 1}
         {" - "}
-        {Number.isInteger(context.currentPage)
-          ? context.itemsPerPage * context.currentPage
-          : 0}{" "}
-        of {context.totalItems}
+        {context.currentPage === 0
+          ? 0
+          : context.currentPage * context.itemsPerPage}
+        {" of "}
+        {context.totalItems}
       </div>
     </div>
   );
